@@ -11,6 +11,9 @@ from werkzeug.security import check_password_hash
 # Routing for your application.
 ###
 
+
+
+
 @app.route('/')
 def home():
     """Render website's home page."""
@@ -116,3 +119,9 @@ def get_uploaded_images():
 def get_image(filename):
     upload_folder = app.config['UPLOAD_FOLDER']
     return send_from_directory(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER']), filename)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out.')
+    return redirect(url_for('home'))
